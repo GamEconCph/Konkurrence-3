@@ -1,9 +1,9 @@
 # Konkurrence 3: Gentaget Priskonkurrence
 
 I denne konkurrence skal du skrive en spillerfunktion, der kan spille et gentaget priskonkurrencespil. 
-Når du er færdig, skal du navngive din fil player.py, og lægge den i mappen ./submission/ og committe. **Husk** at sætte dens property name = 'xxx', hvor xxx skal være et navn, som du vil bruge i samtlige konkurrencer i kurset.
+Når du er færdig, skal du navngive din fil `player.py`, og lægge den i mappen `./submission/` og committe. **Husk** at sætte dens property `name = 'xxx'`, hvor `xxx` skal være det navn, som du vil bruge i samtlige konkurrencer i kurset.
 
-Den medfølgende notebook, `short.ipynb` loader spillerfunktioner fra mappen ./players/ og opstiller en turnering, hvor de kan spille imod hinanden. I `long.ipynb` finder du mere inspiration til, hvordan du kan opstille din funktion. 
+Den medfølgende notebook, `short.ipynb` loader spillerfunktioner fra mappen `./players/` og opstiller en turnering, hvor de kan spille imod hinanden. I `long.ipynb` finder du mere inspiration til, hvordan du kan opstille din funktion. 
 
 # Spillerfunktionen
 
@@ -13,6 +13,8 @@ Spillerfunktionen skal tage flg. inputs
 * `f_profit_opponent`: samme, men for modstanderen, dog med *modsat rækkefølge* af inputs: `f_profit_opponent(p2, p1)`,
 * `pmin`: float, mindste tilladte pris,
 * `pmax`: float, største tilladte pris,
+* `history_own`: array med alle de priser, du selv har spillet tidligere 
+* `history_opponent`: array med de priser, din modstander har spillet
 * `discount_factor`: float, diskonteringsfaktorn (mellem 0.0 og 1.0)
 
 Nedenfor ser du et eksempel på en spillerfunktion, som vælger en tilfældig handling.

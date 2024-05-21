@@ -442,7 +442,7 @@ class Tournament:
         self.player_names = [p.name for p in self.players]
 
         # verify that we have no duplicates 
-        c = pd.value_counts(self.player_names) 
+        c = pd.Series(self.player_names).value_counts()
         I = c>1 # player names with duplicate entries 
         if I.any(): 
             raise Exception(f'Duplicate player names found for {c[I].values}')

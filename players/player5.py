@@ -36,11 +36,32 @@ class player(Player):
                 p1_nash,p2_nash = compute_nash_simple(f_profit_own, f_profit_opponent, pmin, pmax)
                 p = p1_nash
                 
-        assert np.isscalar(p), f'Something went wrong. p is not a scalar: {p}'
+        
+        # safety precautions 
+        if not np.isscalar(p):
+            p = (pmax - pmin) / 2. # if something went wrong, just play the middle price
+
         p = np.clip(p, pmin, pmax) # cut to fit inside the permitted interval
+
         return p
     
+
+
+
+
+# Helper functions for the player class
+
 def compute_nash_simple(f_profit_own, f_profit_opponent, pmin, pmax):
+    '''
+    INPUTS: 
+        f_profit_own: Profit of player 1, inputs: (p1,p2)
+        f_profit_opponent: Profit of player 2, inputs: (p2,p1)
+        pmin: (scalar) minimum price
+        pmax: (scalar) maximum price
+    OUTPUTS: (p1, p2)
+        p1: (scalar) Nash equilibrium price of player 1
+        p2: (scalar) Nash equilibrium price of player 2
+    '''
     p0 = (pmax - pmin) / 2. # initial guess for the optimization routine
     def BR2(p1): 
         f = lambda p2 : -f_profit_opponent(p2[0],p1) # opponent's profit takes p2 as first input! 
@@ -61,8 +82,8 @@ def compute_nash_simple(f_profit_own, f_profit_opponent, pmin, pmax):
     return p1, p2 
 
 
-def minimize_scalar_f(f, x0, pmin, pmax): 
-    x0 = np.array([x0]) # minimize wants a vector input
+def minimize_scalar_f(f:callable, x0:float, pmin:float, pmax:float) -> float: 
+    x0 = np.array([x0]) # convert to vector (of length 1) for minimize
     res = minimize(f, x0=x0, bounds=[(pmin,pmax)], 
                    tol=1e-6, options={'maxiter': 100})
     p_scalar = res.x[0] # minimize returns a vector

@@ -188,14 +188,14 @@ class ContinuousGame(GeneralGame):
             success = False
         if (a < pmin) | (a > pmax): 
             err = f'price {a} out of permitted range [{pmin}; {pmax}]s' 
-            success = false
+            success = False
 
         player = self.players[i_player]
 
         if not success: 
             err_str_pre = f'Player {player.name} made an illegal action'
-            if p.filepath is not None: 
-                err_str_pre += f'(file: "{p.filepath}")'
+            if player.filepath is not None: 
+                err_str_pre += f'(file: "{player.filepath}")'
 
             print(f'{err_str_pre}: {err}')
             return False 
@@ -516,7 +516,7 @@ class Tournament:
         winners = points.loc[I].index.values
         return winners
 
-    def run(self) -> pd.core.frame.DataFrame(): 
+    def run(self) -> pd.DataFrame: 
         self.all_play_all()
         print(self)
         return self.scoreboard()

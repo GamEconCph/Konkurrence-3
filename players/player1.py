@@ -5,7 +5,7 @@ class player(Player):
     name = 'Randawg'
     
     def play(self, f_profit_own, f_profit_opponent, pmin, pmax, history_own, history_opponent, discount_factor):
-        
+        # 0th order strategy
         p = np.random.uniform(pmin, pmax)
         
         return p 

@@ -2,25 +2,19 @@ import numpy as np
 from game_tournament.game import Player # overarching player class
 
 class player(Player):
-    name = 'Undercutting Bastard'
+    name = 'Tit-for-tat'
     
     def play(self, f_profit_own, f_profit_opponent, pmin, pmax, history_own, history_opponent, discount_factor):
+        # Starts at some price, then copies opponent's action
         T = len(history_own)
 
         if T == 0: 
             # initial play 
-            p = pmax * 0.999 
+            p = (pmax+pmin)/2 # just some permitted starting price 
         else: 
-            pj_lag = history_opponent[-1]
-            
-            # first idea: undercut by 10% 
-            p = pj_lag * 0.9 
-            
-            # check if the price has gone too low 
-            if (p - pmin) / (pmax - pmin) < 0.1: 
-                # hike to maximum (hoping the friend follows)
-                p = pmax
-        
+            # dynamic play 
+            p = history_opponent[-1]
+
         p = np.clip(p, pmin, pmax)
         
-        return p
+        return p 

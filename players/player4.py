@@ -19,7 +19,8 @@ class player(Player):
         # find the optimal static cartel price 
         def f_pi_cartel(p_vec): 
             p = p_vec[0]
-            return -f_profit_own(p,p) - f_profit_opponent(p,p)
+            pi_cartel = f_profit_own(p,p) + f_profit_opponent(p,p)
+            return -pi_cartel # we *minimize* the negative profit 
 
         p_cartel = minimize_scalar_f(f_pi_cartel, p0, pmin, pmax)
 
@@ -90,6 +91,6 @@ def compute_nash_simple(f_profit_own, f_profit_opponent, pmin, pmax):
 def minimize_scalar_f(f:callable, x0:float, pmin:float, pmax:float) -> float: 
     x0 = np.array([x0]) # convert to vector (of length 1) for minimize
     res = minimize(f, x0=x0, bounds=[(pmin,pmax)], 
-                   tol=1e-6, options={'maxiter': 100})
+                   tol=1e-6, options={'maxiter': 20})
     p_scalar = res.x[0] # minimize returns a vector
     return p_scalar 

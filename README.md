@@ -31,7 +31,7 @@ Turneringen vil blive gentaget 100 gange mellem dig og din modstander for at mid
 
 ## Historikken 
 
-Du kan se i eksemplet `player5.py`, som foretager sig mere avancerede ting med historikken. 
+Her er et eksempel, som foretager sig mere avancerede ting med historikken. 
 
 ```Python
 name = 'Tit for Tat'
